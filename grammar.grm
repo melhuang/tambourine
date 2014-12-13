@@ -2,7 +2,20 @@
 
 %%
 
-R ->  CHAR               %{ var uid = genUID(); return n1.val + uid + '\n' + n1.val + uid + ' [label="' + n1.val + '"]'; %}
-  ;
+Song -> MM ‘|’
+;
+MM -> MM M | M
+;
+M  -> ‘|’ SS
+;
+SS -> SS S | S
+;
+S -> C B | NOTE B
+;
+C -> ‘(‘ NN ’)’
+;
+NN -> NOTE ’,’ NN | NOTE
+;
 
-CHAR -> /[A-Za-z0-9]/ ;
+NOTE     -> /[ABCDEFG](b|#)?/;
+B-> /-*/;
