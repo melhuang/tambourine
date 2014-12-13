@@ -5,7 +5,7 @@ if (typeof(module) !== 'undefined') {
   var localStorage = new LocalStorage('./parser.cache', {strict: false});
   var http = require('http');
   var ParseError = require('./errors.js').ParseError;
-//  var genUID = require('./util.js').genUID;
+  var determine_beats = require('./util.js').determine_beats;
 }
 
 var useCache = false;
