@@ -3,7 +3,7 @@
 if (typeof(module) !== 'undefined') {
   var LocalStorage = require('./storage.js');
   var localStorage = new LocalStorage('./parser.cache', {strict: false});
-//  var http = require('http');
+  var http = require('http');
   var ParseError = require('./errors.js').ParseError;
 //  var genUID = require('./util.js').genUID;
 }
