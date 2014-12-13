@@ -1,0 +1,8 @@
+%ignore /\n+/
+
+%%
+
+R ->  CHAR               %{ var uid = genUID(); return n1.val + uid + '\n' + n1.val + uid + ' [label="' + n1.val + '"]'; %}
+  ;
+
+CHAR -> /[A-Za-z0-9]/ ;
