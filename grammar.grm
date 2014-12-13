@@ -2,20 +2,30 @@
 
 %%
 
-Song -> MM ‘|’
-;
-MM -> MM M | M
-;
-M  -> ‘|’ SS
-;
-SS -> SS S | S
-;
-S -> C B | NOTE B
-;
-C -> ‘(‘ NN ’)’
-;
-NN -> NOTE ’,’ NN | NOTE
-;
+Song -> MM ‘|’            %{ return translateMML(n1.val) %}
+     ;
+
+MM -> MM M                %{ return n1.val.concat(n2.val)}
+    | M                   %{ return [n1.val] %}
+    ;
+
+M  -> ‘|’ SS              %{ return n1.val %}
+    ;
+
+SS -> SS S                %( return n1.val.concat(n2.val)); %}
+    | S                   %{ return [n1.val]; %}
+    ;
+
+S -> C B                  %{ return sound(n1.val, n2.val);  %}
+  | NOTE B                %{ return sound(n1.val, n2.val); %}
+  ;
+
+C -> ‘(‘ NN ’)’           %{ return n1.val %}
+  ;
+
+NN -> NN ’,’ NOTE         %{ return n1.val.concat(n2.val); %}
+    | NOTE                %{ return [n1.val]; %]
+    ;
 
 NOTE     -> /[ABCDEFG](b|#)?/;
 B-> /-*/;
