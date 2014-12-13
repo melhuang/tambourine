@@ -13,15 +13,6 @@ function determine_beats(measure) {
   }
   return measure;
 }
-function chord(arr) {
-  var c = "";
-  for (var i = 0, i < arr.length; i++) {
-    c += arr[i];
-    c += "0";
-  }
-  c = c.substring(0, c.length - 2);
-  return c;
-}
 
 if (typeof(module) !== 'undefined') {
   module.exports = {
