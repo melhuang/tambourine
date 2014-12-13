@@ -48,6 +48,10 @@ readFiles(files, function(fileContents) {
   }
 });
 
+// tambourine functions
+function determine_beats(measure) {
+  //measure is array of sounds
+}
 function chord(arr) {
   var c = "";
   for (var i = 0, i < arr.length; i++) {
