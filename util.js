@@ -1,6 +1,7 @@
 'use strict';
 // tambourine functions
 function determine_beats(measure) {
+  //console.log(measure)
   //measure is array of sounds, get length
   //sound is object with array of notes & beats (integer)
   var time = 4; // replace with global
@@ -18,7 +19,7 @@ function translate_mml(sounds) {
   // Takes in an array of sounds
   // [{notes:['A','B'], beat:4}, {notes:['A','B'], beat:4}]
   var result = "";
-  console.log(sounds);
+  // console.log(sounds);
   for (var i in sounds) {
     var sound = sounds[i];
     var notes = sound['notes'];

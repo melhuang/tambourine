@@ -1,17 +1,18 @@
 %ignore /\n*/
 %ignore /[ \t\v\f\r]*/
 
+%left '|'
+
 %%
 
-Song -> MM                %{ return translate_mml(n1.val); %}
+Song -> MM                %{ console.log(n1.val); return translate_mml(n1.val); %}
      ;
 
 MM  -> MM M               %{ return n1.val.concat(n2.val); %}
     | M                   %{ return n1.val; %}
     ;
 
-M   -> SS '|' SS          %{ return determine_beats(n1.val).concat(determine_beats(n3.val)); %}
-    |  SS                 %{ return determine_beats(n1.val); %}
+M   -> SS '|'   %dprec 1  %{ return determine_beats(n1.val); %}
     ;
 
 SS  -> SS S               %{ return n1.val.concat(n2.val); %}

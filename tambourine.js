@@ -108,20 +108,20 @@ exports.setOctave = function (newOctave) {
 exports.createMelody = function (str, tmpo, vol, oct) {
   obj = {};
   obj.notes = str;
-  if (tmpo == undefined) { 
-    obj.tempo = tempo 
+  if (tmpo == undefined) {
+    obj.tempo = tempo
   }
   else {
     obj.tempo = tmpo;
   }
-  if (vol == undefined) { 
-    obj.volume = volume 
+  if (vol == undefined) {
+    obj.volume = volume
   }
   else {
     obj.volume = vol;
   }
-  if (oct == undefined) { 
-    obj.octave = octave 
+  if (oct == undefined) {
+    obj.octave = octave
   }
   else {
     obj.octave = octave;
@@ -138,7 +138,7 @@ exports.play = function (melodies) {
   var mmlNotes = [];
 
   forEachAsync(melodies, function(next, element, index, array) {
-    console.log("element: " + JSON.stringify(element));
+    //console.log("element: " + JSON.stringify(element));
     rparse([element.notes], grammar, null, function(results) {
       if (element.rep != null) {
         results = '[' + results + ']' + element.rep;
