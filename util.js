@@ -81,6 +81,7 @@ if (typeof(module) !== 'undefined') {
     'translate_mml': translate_mml,
     'determine_beats': determine_beats,
     'count': count,
+    'octave': octave,
     'convert': convert
   };
 }

@@ -32,7 +32,7 @@ NN -> NN ',' NOTE         %{ return n1.val.concat([convert(n3.val)]); %}
     ;
 
 OO -> OO O
-    | O                   %{ return [convert(n1.val)]; %}
+    | O                   %{ return [octave(n1.val)]; %}
     ;
 
 NOTE     -> /[ABCDEFG](b|#)?/;
