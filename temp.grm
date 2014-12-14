@@ -1,0 +1,40 @@
+%ignore /\n*/
+%ignore /[ \t\v\f\r]*/
+
+%%
+
+Song -> MM                %{ return translate_mml(n1.val); %}
+     ;
+
+MM  -> MM M               %{ return n1.val.concat(n2.val); %}
+    | M                   %{ return n1.val; %}
+    ;
+
+M   -> SS '|' SS          %{ return determine_beats(n1.val).concat(determine_beats(n3.val)); %}
+    |  SS                 %{ return determine_beats(n1.val); %}
+    ;
+
+SS  -> SS S               %{ return n1.val.concat(n2.val); %}
+    | S                   %{ return [n1.val]; %}//%{ return [octave(n1.val)].concat(n2.val); %}
+    ;
+
+S -> C B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
+  | C                     %{ return {'notes': n1.val, 'beats': 1}; %}
+  | NN B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
+  | NN                    %{ return {'notes': n1.val, 'beats': 1}; %}
+  ;
+
+C -> '(' NN ')'           %{ return n2.val; %}
+  ;
+
+NN -> NN ',' NOTE         %{ return n1.val.concat([convert(n3.val)]); %}
+    | NOTE                %{ return [convert(n1.val)]; %}
+    ;
+
+OO -> OO O                %{ return n1.val.concat([octave(n2.val)]); %}
+    | O                   %{ return [octave(n1.val)]; %}
+    ;
+
+NOTE     -> /[ABCDEFG](b|#)?/;
+B        -> /-*/;
+O        -> /(/|\\)?/;
