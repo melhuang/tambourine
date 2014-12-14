@@ -9,7 +9,7 @@ function determine_beats(measure) {
     total += measure[i].beats;
   }
   for (var i in measure) {
-    measure[i].beats = total / Math.pow(2,measure[i].beats);
+    measure[i].beats = total / Math.pow(2, measure[i].beats - 1);
   }
   return measure;
 }
