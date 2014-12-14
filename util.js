@@ -5,11 +5,11 @@ function determine_beats(measure) {
   //sound is object with array of notes & beats (integer)
   var time = 4; // replace with global
   var total = 0;
-  for (var sound in measure) {
-    total += sound.beats;
+  for (var i in measure) {
+    total += measure[i].beats;
   }
-  for (var sound in measure) {
-    sound.beats = total / Math.pow(2,sound.beats);
+  for (var i in measure) {
+    measure[i].beats = total / Math.pow(2,measure[i].beats);
   }
   return measure;
 }
