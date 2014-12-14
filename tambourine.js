@@ -1,61 +1,18 @@
-
 var rparse = require('./rparse.js').rparse;
 
+/* Packages */
 var T = require('timbre');
 var forEachAsync = require('forEachAsync').forEachAsync;
 var fs = require('fs');
 
-// var argLength = process.argv.length;
-// if (argLength != 3 && argLength != 4) {
-//   return console.log('Please give arguments: Tambourine file and optional grammar file.');
-// }
-
+/* Grammar File */
 var grammar = '';
 fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
   if (err) { return console.error(err);}
   grammar = fileContent;
 });
 
-// var files = [process.argv[2]];
-// if (argLength == 4)
-//   files.push(process.argv[3]);
-
-// function readFiles(files, callback, fileContents) {
-//   if (!fileContents)
-//     fileContents = [];
-
-//   var file, remainingFiles;
-//   if (files.length > 0) {
-//     file = files.shift();
-//     remainingFiles = files;
-//   } else { //no more files to read, ready to parse and interpret
-//     callback(fileContents);
-//     return;
-//   }
-
-//   fs.readFile(file, 'utf8', function(err, fileContent) {
-//     if (err) { return console.log(err); }
-//     fileContents.push(fileContent);
-//     readFiles(remainingFiles, callback, fileContents);
-//   });
-// }
-
-// function handleAst(ast) {
-//   console.log(ast);
-// }
-
-// readFiles(files, function(fileContents) {
-//   if (fileContents.length == 1) {
-//     rparse(fileContents, null, grammar, function(asts) {
-//       handleAst(asts[0]);
-//     });
-//   } else {
-//     rparse([fileContents[0]], fileContents[1], null, function(asts) {
-//       handleAst(asts[0]);
-//     });
-//   }
-// });
-
+/* Instrument Settings */
 var env   = T("adsr", {d:3000, s:0, r:600});
 var synth = T("SynthDef", {mul:0.45, poly:8});
 
@@ -71,23 +28,33 @@ master = T("eq", {params:{lf:[800, 0.5, -2], mf:[6400, 0.5, 4]}}, master);
 master = T("phaser", {freq:mod, Q:2, steps:4}, master);
 master = T("delay", {time:"BPM60 L16", fb:0.65, mix:0.25}, master);
 
-var tempo = '4/4';
+var time = '4/4';
+var tempo = 100;
 var volume = 8;
 var octave = 4;
 
 /* PUBLIC METHODS */
 
-exports.setTempo = function (newTempo) {
+exports.setGlobalTime = function (newTime) {
   var patt = /^([1-9])+\/([1-9])+$/g;
-  if (!patt.test(newTempo)) {
-    console.error("Tempo should be defined in syntax: \'n/n\'");
+  if (!patt.test(newTime)) {
+    console.error("Time signature should be defined in syntax: \'n/n\'");
+  }
+  else {
+    time = newTime;
+  }
+}
+
+exports.setGlobalTempo = function (newTempo) {
+  if (!(newVolume % 1 === 0)) {
+    console.error("Tempo should be an integer");
   }
   else {
     tempo = newTempo;
   }
 }
 
-exports.setVolume = function (newVolume) {
+exports.setGlobalVolume = function (newVolume) {
   if (!(newVolume % 1 === 0)) {
     console.error("Volume should be an integer");
   }
@@ -96,7 +63,7 @@ exports.setVolume = function (newVolume) {
   }
 }
 
-exports.setOctave = function (newOctave) {
+exports.setGlobalOctave = function (newOctave) {
   if (!(newOctave % 1 === 0)) {
     console.error("Octave should be an integer");
   }
@@ -109,23 +76,21 @@ exports.createMelody = function (str, tmpo, vol, oct) {
   obj = {};
   obj.notes = str;
   if (tmpo == undefined) {
-    obj.tempo = tempo
-  }
-  else {
+    obj.tempo = tempo;
+  } else {
     obj.tempo = tmpo;
   }
   if (vol == undefined) {
-    obj.volume = volume
-  }
-  else {
+    obj.volume = volume;
+  } else {
     obj.volume = vol;
   }
   if (oct == undefined) {
-    obj.octave = octave
-  }
-  else {
+    obj.octave = octave;
+  } else {
     obj.octave = octave;
   }
+
   obj.rep = null;
   obj.repeat = function (num) {
     obj.rep = num;
@@ -133,13 +98,18 @@ exports.createMelody = function (str, tmpo, vol, oct) {
   return obj;
 }
 
-
 exports.play = function (melodies) {
   var mmlNotes = [];
 
   forEachAsync(melodies, function(next, element, index, array) {
     //console.log("element: " + JSON.stringify(element));
     rparse([element.notes], grammar, null, function(results) {
+      var settings = "";
+      settings += "t" + element.tempo;
+      settings += " v" + element.volume;
+      settings += " o" + element.octave;
+      // settings += " l" + time[]
+      results = settings + " " + results;
       if (element.rep != null) {
         results = '[' + results + ']' + element.rep;
       }

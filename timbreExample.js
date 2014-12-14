@@ -68,7 +68,11 @@ canon3 += "f+8 d8 e8 < c+8 d8 f+8 a8 > a8 b8 g8 a8 f+8 d8 < d8 d8. c+16";
 canon3 += "d16 c+16 d16 > d16 c+16 a16 e16 f+16 d16 < d16 c+16 >b16< c+16 >a16< c+16 d16 ";
 canon3 += "> b16 a16 g16 b16 a16 g16 f+16 e16 d16 c+16 >b16 a16 a16 b16 a16 g16";
 
+test = "t60 l4 v8 o5";
+test += "c2. a";
 
-T("mml", {mml:[canon1, canon2, canon3]}, synth).on("ended", function() {
+test2 = "t60 l4 v8 o5";
+test2 += "d2.5 b";
+T("mml", {mml:[test,test2]}, synth).on("ended", function() {
   this.stop();
 }).set({buddies:master}).start().play();
