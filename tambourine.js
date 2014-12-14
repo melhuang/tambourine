@@ -40,7 +40,7 @@ function readFiles(files, callback, fileContents) {
 }
 
 function handleAst(ast) {
-  var output = "<html><head><script src='http://code.jquery.com/jquery-1.11.0.min.js'></script></head><body>" + ast + "</body></html>";
+  output = "fin"
   console.log(output);
 }
 
