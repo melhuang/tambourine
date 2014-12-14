@@ -1,21 +1,18 @@
-
 var rparse = require('./rparse.js').rparse;
 
+/* Packages */
 var T = require('timbre');
 var forEachAsync = require('forEachAsync').forEachAsync;
 var fs = require('fs');
 
-// var argLength = process.argv.length;
-// if (argLength != 3 && argLength != 4) {
-//   return console.log('Please give arguments: Tambourine file and optional grammar file.');
-// }
-
+/* Grammar File */
 var grammar = '';
 fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
   if (err) { return console.error(err);}
   grammar = fileContent;
 });
 
+/* Instrument Settings */
 var env   = T("adsr", {d:3000, s:0, r:600});
 var synth = T("SynthDef", {mul:0.45, poly:8});
 
