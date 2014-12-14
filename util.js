@@ -29,11 +29,11 @@ function translate_mml(sounds) {
     if (notes.length == 1)  {
       exp = notes[0].toLowerCase() + beats.toString();
     } else {
-      last_note = notes.pop();
-      for (var note in notes) {
-        exp += note.toLowerCase() + "0";
+      var last_note = notes.pop();
+      for (var j in notes) {
+        exp += notes[j].toLowerCase() + "0";
       }
-      exp += last_note + beats.toString();
+      exp += last_note.toLowerCase() + beats.toString();
     }
 
     result += exp + " ";
