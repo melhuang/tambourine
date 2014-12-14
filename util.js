@@ -18,6 +18,7 @@ function translate_mml(sounds) {
   // Takes in an array of sounds
   // [{notes:['A','B'], beat:4}, {notes:['A','B'], beat:4}]
   var result = "";
+  console.log(sounds);
   for (var i in sounds) {
     var sound = sounds[i];
     var notes = sound['notes'];
@@ -41,7 +42,7 @@ function translate_mml(sounds) {
 }
 
 function count(dashes) {
-  if (dashes === undefined) {
+  if (dashes == "") {
     return 1;
   }
   var num = 0;
