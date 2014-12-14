@@ -1,7 +1,9 @@
 
 var rparse = require('./rparse.js').rparse;
-var T = require("timbre");
 
+var T = require('timbre');
+// var Join = require('join').Join;
+var forEachAsync = require('forEachAsync').forEachAsync;
 var fs = require('fs');
 
 var argLength = process.argv.length;
@@ -57,16 +59,82 @@ readFiles(files, function(fileContents) {
 
 /* PUBLIC METHODS */
 
-var melodies = [];
 
-exports.createMelody = function (str) {
-  var finished = function(str) {
-    melodies.push(str);
-    console.log(melodies);
+/* FutureJS orEachAsync implementation. */
+
+var tempo = '4/4';
+var volume = 8;
+var octave = 4;
+
+exports.setTempo = function (newTempo) {
+  var patt = /^([1-9])+\/([1-9])+$/g;
+  if (!patt.test(newTempo)) {
+    console.error("Tempo should be defined in syntax: \'n/n\'");
   }
-  rparse([str], grammar, null, function(result) {
-    // console.log(JSON.stringify(result));
-    finished(result);
-  });
+  else {
+    tempo = newTempo;
+  }
 }
 
+exports.setVolume = function (newVolume) {
+  if (!(newVolume % 1 === 0)) {
+    console.error("Volume should be an integer");
+  }
+  else {
+    volume = newVolume;
+  }
+}
+
+exports.setOctave = function (newOctave) {
+  if (!(newOctave % 1 === 0)) {
+    console.error("Octave should be an integer");
+  }
+  else {
+    octave = newOctave;
+  }
+}
+
+exports.createMelody = function (str, tmpo, vol, oct) {
+  obj = {};
+  obj.notes = str;
+  if (tmpo == undefined) { 
+    obj.tempo = tempo 
+  }
+  else {
+    obj.tempo = tmpo;
+  }
+  if (vol == undefined) { 
+    obj.volume = volume 
+  }
+  else {
+    obj.volume = vol;
+  }
+  if (oct == undefined) { 
+    obj.octave = octave 
+  }
+  else {
+    obj.octave = octave;
+  }
+  return obj;
+}
+
+exports.play = function (melodies) {
+  // console.log('test');
+  var mmlNotes = [];
+  forEachAsync(melodies, function(next, element, index, array) {
+    console.log("element: " + JSON.stringify(element));
+    rparse([element.notes], grammar, null, function(results) {
+      mmlNotes.push(results);
+    });
+  }).then(function(){
+    console.log('all requests have finished');
+  });
+
+  // for (index in melodies) {
+  //   console.log("melody: " + JSON.stringify(melodies[index]));
+  //   var melody = melodies[index];
+  //   rparse(melody.notes, grammar, null, function(results) {
+  //     console.log(JSON.stringify(results));
+  //   });
+  // }
+}
