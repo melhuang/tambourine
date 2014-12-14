@@ -53,6 +53,14 @@ function convert(note) {
   }
 }
 
+function octave(slash) {
+  if (slash.charAt(0) == '/') {
+    return '<';
+  } else {
+    return '>';
+  }
+}
+
 function count(dashes) {
   if (dashes == "") {
     return 1;
