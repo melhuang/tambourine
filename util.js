@@ -40,6 +40,17 @@ function translate_mml(sounds) {
   }
   return result;
 }
+function convert(note) {
+  if (note.length == 1) {
+    return note.toLowerCase();
+  } else {
+    if (note.charAt(1) == 'b') {
+      return note.charAt(0) + '-';
+    } else {
+      return note.charAt(0) + '+';
+    }
+  }
+}
 
 function count(dashes) {
   if (dashes == "") {
