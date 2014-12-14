@@ -2,17 +2,17 @@
 
 %%
 
-Song -> MM ‘|’            %{ return translate_mml(n1.val); %}
+Song -> MM '|'            %{ return translate_mml(n1.val); %}
      ;
 
-MM -> MM M                %{ return n1.val.concat(n2.val); %}
+MM  -> MM M               %{ return n1.val.concat(n2.val); %}
     | M                   %{ return [n1.val]; %}
     ;
 
-M  -> ‘|’ SS              %{ return determine_beats(n2.val); %}
+M   -> '|' SS             %{ return determine_beats(n2.val); %}
     ;
 
-SS -> SS S                %( return n1.val.concat(n2.val)); %}
+SS  -> SS S               %{ return n1.val.concat(n2.val); %}
     | S                   %{ return [n1.val]; %}
     ;
 
@@ -20,12 +20,12 @@ S -> C B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %
   | NOTE B                %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
   ;
 
-C -> ‘(‘ NN ’)’           %{ return n1.val; %}
+C -> '(' NN ')'           %{ return n1.val; %}
   ;
 
-NN -> NN ’,’ NOTE         %{ return n1.val.concat(n2.val); %}
+NN -> NN ',' NOTE         %{ return n1.val.concat(n2.val); %}
     | NOTE                %{ return [n1.val]; %}
     ;
 
 NOTE     -> /[ABCDEFG](b|#)?/;
-B-> /-*/;
+B        -> /-*/;
