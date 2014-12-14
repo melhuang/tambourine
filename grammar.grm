@@ -14,23 +14,20 @@
 // M   -> '|' SS             %{ return determine_beats(n2.val); %}
 //     ;
 
-// SS  -> SS S               %{ return n1.val.concat(n2.val); %}
-//     | S                   %{ return [n1.val]; %}
-//     ;
-
-// S -> C B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
-//   | NN B                  %{ console.log(n2.val); return {'notes': n1.val, 'beats': count(n2.val)}; %}
-//   ;
-
-// C -> '(' NN ')'           %{ return n1.val; %}
-//   ;
-
-S  -> NOTE NOTE %{console.log(n1.val); console.log(n2.val); return 'end';%}
+SS  -> SS S               %{ return n1.val.concat(n2.val); %}
+    | S                   %{ return [n1.val]; %}
     ;
 
-// NN -> NN ',' NOTE         %{ return n1.val.concat(n2.val); %}
-//     | NOTE                %{ console.log("1: " + n1.val); return [n1.val]; %}
-//     ;
+S -> C B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
+  | NN B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
+  ;
+
+C -> '(' NN ')'           %{ return n1.val; %}
+  ;
+
+NN -> NN ',' NOTE         %{ return n1.val.concat(n2.val); %}
+    | NOTE                %{ return [n1.val]; %}
+    ;
 
 NOTE     -> /[ABCDEFG](b|#)?/;
 B        -> /-*/;
