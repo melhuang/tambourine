@@ -71,6 +71,7 @@ if (typeof(module) !== 'undefined') {
   module.exports = {
     'translate_mml': translate_mml,
     'determine_beats': determine_beats,
-    'count': count
+    'count': count,
+    'convert': convert
   };
 }
