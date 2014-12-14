@@ -3,9 +3,9 @@
 
 %%
 
-// Song -> MM                %{ return translate_mml(n1.val); %}
-//      | SS                 %{ return translate_mml(n1.val); %}
-//      ;
+Song -> MM                %{ return translate_mml(n1.val); %}
+     | SS                 %{ return translate_mml(n1.val); %}
+     ;
 
 // MM  -> MM M               %{ return n1.val.concat(n2.val); %}
 //     | M                   %{ return [n1.val]; %}
