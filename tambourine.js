@@ -126,30 +126,32 @@ exports.createMelody = function (str, tmpo, vol, oct) {
   else {
     obj.octave = octave;
   }
+  obj.rep = null;
+  obj.repeat = function (num) {
+    obj.rep = num;
+  }
   return obj;
 }
 
+
 exports.play = function (melodies) {
   var mmlNotes = [];
+
   forEachAsync(melodies, function(next, element, index, array) {
     console.log("element: " + JSON.stringify(element));
     rparse([element.notes], grammar, null, function(results) {
+      if (element.rep != null) {
+        results = '[' + results + ']' + element.rep;
+      }
       mmlNotes.push(results);
       next();
     });
   }).then(function(){
     console.log('all requests have finished');
     console.log('mmlNotes: ' + mmlNotes);
+    //Play music here
     T("mml", {mml:mmlNotes}, synth).on("ended", function() {
       this.stop();
     }).set({buddies:master}).start().play();
   });
-
-  // for (index in melodies) {
-  //   console.log("melody: " + JSON.stringify(melodies[index]));
-  //   var melody = melodies[index];
-  //   rparse(melody.notes, grammar, null, function(results) {
-  //     console.log(JSON.stringify(results));
-  //   });
-  // }
 }
