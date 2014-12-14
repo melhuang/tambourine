@@ -15,7 +15,7 @@ M   -> SS '|' SS          %{ return determine_beats(n1.val).concat(determine_bea
     ;
 
 SS  -> SS S               %{ return n1.val.concat(n2.val); %}
-    | S                   %{ return [n1.val]; %}
+    | OO S                %{ return n1.val.concat(n2.val); %}
     ;
 
 S -> C B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
@@ -31,7 +31,7 @@ NN -> NN ',' NOTE         %{ return n1.val.concat([convert(n3.val)]); %}
     | NOTE                %{ return [convert(n1.val)]; %}
     ;
 
-OO -> OO O
+OO -> OO O                %{ return n1.val.concat([octave(n3.val)]); %}
     | O                   %{ return [octave(n1.val)]; %}
     ;
 

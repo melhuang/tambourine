@@ -16,46 +16,6 @@ fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
   grammar = fileContent;
 });
 
-// var files = [process.argv[2]];
-// if (argLength == 4)
-//   files.push(process.argv[3]);
-
-// function readFiles(files, callback, fileContents) {
-//   if (!fileContents)
-//     fileContents = [];
-
-//   var file, remainingFiles;
-//   if (files.length > 0) {
-//     file = files.shift();
-//     remainingFiles = files;
-//   } else { //no more files to read, ready to parse and interpret
-//     callback(fileContents);
-//     return;
-//   }
-
-//   fs.readFile(file, 'utf8', function(err, fileContent) {
-//     if (err) { return console.log(err); }
-//     fileContents.push(fileContent);
-//     readFiles(remainingFiles, callback, fileContents);
-//   });
-// }
-
-// function handleAst(ast) {
-//   console.log(ast);
-// }
-
-// readFiles(files, function(fileContents) {
-//   if (fileContents.length == 1) {
-//     rparse(fileContents, null, grammar, function(asts) {
-//       handleAst(asts[0]);
-//     });
-//   } else {
-//     rparse([fileContents[0]], fileContents[1], null, function(asts) {
-//       handleAst(asts[0]);
-//     });
-//   }
-// });
-
 var env   = T("adsr", {d:3000, s:0, r:600});
 var synth = T("SynthDef", {mul:0.45, poly:8});
 
@@ -108,22 +68,19 @@ exports.setOctave = function (newOctave) {
 exports.createMelody = function (str, tmpo, vol, oct) {
   obj = {};
   obj.notes = str;
-  if (tmpo == undefined) { 
-    obj.tempo = tempo 
-  }
-  else {
+  if (tmpo == undefined) {
+    obj.tempo = tempo;
+  } else {
     obj.tempo = tmpo;
   }
-  if (vol == undefined) { 
-    obj.volume = volume 
-  }
-  else {
+  if (vol == undefined) {
+    obj.volume = volume;
+  } else {
     obj.volume = vol;
   }
-  if (oct == undefined) { 
-    obj.octave = octave 
-  }
-  else {
+  if (oct == undefined) {
+    obj.octave = octave;
+  } else {
     obj.octave = octave;
   }
   obj.rep = null;
