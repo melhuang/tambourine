@@ -9,31 +9,11 @@ var fs = require('fs');
 //   return console.log('Please give arguments: regular expression file and optional grammar file.');
 // }
 
-<<<<<<< HEAD
-var defaultGrammar = 'grammar.grm';
-var files = [process.argv[2]];
-if (argLength == 4)
-  files.push(process.argv[3]);
-
-function readFiles(files, callback, fileContents) {
-  if (!fileContents)
-    fileContents = [];
-
-  var file, remainingFiles;
-  if (files.length > 0) {
-    file = files.shift();
-    remainingFiles = files;
-  } else { //no more files to read, ready to parse and interpret
-    callback(fileContents);
-    return;
-  }
-=======
 var grammar = '';
 fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
   if (err) { return console.error(err);}
   grammar = fileContent;
 });
->>>>>>> 42126b53aecc7e4f15f14cdc0f147f11f814316a
 
 // var files = [process.argv[2]];
 // if (argLength == 4)
