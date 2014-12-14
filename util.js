@@ -6,10 +6,10 @@ function determine_beats(measure) {
   var time = 4; // replace with global
   var total = 0;
   for (var sound in measure) {
-    total += sound.beats;
+    total += sound.beat;
   }
   for (var sound in measure) {
-    sound.beats = total / Math.pow(2,sound.beats);
+    sound.beat = total / Math.pow(2,sound.beats);
   }
   return measure;
 }
