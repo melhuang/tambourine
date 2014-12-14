@@ -12,7 +12,7 @@ MM  -> MM M               %{ return n1.val.concat(n2.val); %}
     | M                   %{ return n1.val; %}
     ;
 
-M   -> SS '|'   %dprec 1  %{ return determine_beats(n1.val); %}
+M   -> SS '|'             %{ return determine_beats(n1.val); %}
     ;
 
 SS  -> SS S               %{ return n1.val.concat(n2.val); %}

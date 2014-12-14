@@ -47,9 +47,9 @@ function convert(note) {
     return note.toLowerCase();
   } else {
     if (note.charAt(1) == 'b') {
-      return note.charAt(0) + '-';
+      return note.charAt(0).toLowerCase() + '-';
     } else {
-      return note.charAt(0) + '+';
+      return note.charAt(0).toLowerCase() + '+';
     }
   }
 }
