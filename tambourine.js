@@ -6,7 +6,7 @@ if (argLength != 3 && argLength != 4) {
   return console.log('Please give arguments: regular expression file and optional grammar file.');
 }
 
-var defaultGrammar = 'regularExpressionHighlightingServer.grm';
+var defaultGrammar = 'grammar.grm';
 var files = [process.argv[2]];
 if (argLength == 4)
   files.push(process.argv[3]);

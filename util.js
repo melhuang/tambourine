@@ -17,21 +17,21 @@ function determine_beats(measure) {
 function translate_mml(sounds) {
   // Takes in an array of sounds
   // [{notes:['A','B'], beat:4}, {notes:['A','B'], beat:4}]
-  result = ""
+  var result = ""
   for (var sound in sounds) {
-    notes = sound['notes']
-    beat = sound['beat']
+    var notes = sound['notes']
+    var beats = sound['beats']
 
-    exp = ""
+    var exp = ""
     // Single note
     if (notes.length == 1)  {
-      exp = notes[0].toLowerCase() + beat.toString();
+      exp = notes[0].toLowerCase() + beats.toString();
     } else {
       last_note = notes.pop()
       for (var note in notes) {
         exp += note.toLowerCase() + "0"
       }
-      exp += last_note + beat.toString();
+      exp += last_note + beats.toString();
     }
 
     result += exp + " "
@@ -39,19 +39,9 @@ function translate_mml(sounds) {
   return result
 }
 
-function chord(arr) {
-  var c = "";
-  for (var i = 0, i < arr.length; i++) {
-    c += arr[i];
-    c += "0";
-  }
-  c = c.substring(0, c.length - 2);
-  return c;
-}
-
 if (typeof(module) !== 'undefined') {
   module.exports = {
-    'chord': chord,
+    'translate_mml': translate_mml,
     'determine_beats': determine_beats
   };
 }
