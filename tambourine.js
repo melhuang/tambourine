@@ -40,8 +40,7 @@ function readFiles(files, callback, fileContents) {
 }
 
 function handleAst(ast) {
-  output = "fin"
-  console.log(output);
+  console.log(ast);
 }
 
 readFiles(files, function(fileContents) {
