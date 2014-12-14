@@ -6,6 +6,9 @@ if (typeof(module) !== 'undefined') {
   var http = require('http');
   var ParseError = require('./errors.js').ParseError;
   var determine_beats = require('./util.js').determine_beats;
+  var translate_mml = require('./util.js').translate_mml;
+  var count = require('./util.js').count;
+
 }
 
 var useCache = false;
