@@ -6,10 +6,10 @@ var T = require('timbre');
 var forEachAsync = require('forEachAsync').forEachAsync;
 var fs = require('fs');
 
-var argLength = process.argv.length;
-if (argLength != 3 && argLength != 4) {
-  return console.log('Please give arguments: Tambourine file and optional grammar file.');
-}
+// var argLength = process.argv.length;
+// if (argLength != 3 && argLength != 4) {
+//   return console.log('Please give arguments: Tambourine file and optional grammar file.');
+// }
 
 var grammar = '';
 fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
@@ -17,45 +17,45 @@ fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
   grammar = fileContent;
 });
 
-var files = [process.argv[2]];
-if (argLength == 4)
-  files.push(process.argv[3]);
+// var files = [process.argv[2]];
+// if (argLength == 4)
+//   files.push(process.argv[3]);
 
-function readFiles(files, callback, fileContents) {
-  if (!fileContents)
-    fileContents = [];
+// function readFiles(files, callback, fileContents) {
+//   if (!fileContents)
+//     fileContents = [];
 
-  var file, remainingFiles;
-  if (files.length > 0) {
-    file = files.shift();
-    remainingFiles = files;
-  } else { //no more files to read, ready to parse and interpret
-    callback(fileContents);
-    return;
-  }
+//   var file, remainingFiles;
+//   if (files.length > 0) {
+//     file = files.shift();
+//     remainingFiles = files;
+//   } else { //no more files to read, ready to parse and interpret
+//     callback(fileContents);
+//     return;
+//   }
 
-  fs.readFile(file, 'utf8', function(err, fileContent) {
-    if (err) { return console.log(err); }
-    fileContents.push(fileContent);
-    readFiles(remainingFiles, callback, fileContents);
-  });
-}
+//   fs.readFile(file, 'utf8', function(err, fileContent) {
+//     if (err) { return console.log(err); }
+//     fileContents.push(fileContent);
+//     readFiles(remainingFiles, callback, fileContents);
+//   });
+// }
 
-function handleAst(ast) {
-  console.log(ast);
-}
+// function handleAst(ast) {
+//   console.log(ast);
+// }
 
-readFiles(files, function(fileContents) {
-  if (fileContents.length == 1) {
-    rparse(fileContents, null, grammar, function(asts) {
-      handleAst(asts[0]);
-    });
-  } else {
-    rparse([fileContents[0]], fileContents[1], null, function(asts) {
-      handleAst(asts[0]);
-    });
-  }
-});
+// readFiles(files, function(fileContents) {
+//   if (fileContents.length == 1) {
+//     rparse(fileContents, null, grammar, function(asts) {
+//       handleAst(asts[0]);
+//     });
+//   } else {
+//     rparse([fileContents[0]], fileContents[1], null, function(asts) {
+//       handleAst(asts[0]);
+//     });
+//   }
+// });
 
 /* PUBLIC METHODS */
 
@@ -125,9 +125,12 @@ exports.play = function (melodies) {
     console.log("element: " + JSON.stringify(element));
     rparse([element.notes], grammar, null, function(results) {
       mmlNotes.push(results);
+      next();
     });
+    // rparse([element.notes], grammar, null, next);
   }).then(function(){
     console.log('all requests have finished');
+    console.log('mmlNotes: ' + mmlNotes);
   });
 
   // for (index in melodies) {
