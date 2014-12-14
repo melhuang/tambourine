@@ -11,7 +11,8 @@ MM  -> MM M               %{ return n1.val.concat(n2.val); %}
     | M                   %{ return n1.val; %}
     ;
 
-M   -> '|' SS  '|'        %{ return determine_beats(n2.val); %}
+M   -> SS '|' SS          %{ return determine_beats(n1.val).concat(determine_beats(n3.val)); %}
+    |  SS                 %{ return determine_beats(n1.val); %}
     ;
 
 SS  -> SS S               %{ return n1.val.concat(n2.val); %}
