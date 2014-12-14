@@ -40,6 +40,7 @@ function translate_mml(sounds) {
   }
   return result;
 }
+
 function convert(note) {
   if (note.length == 1) {
     return note.toLowerCase();
@@ -71,6 +72,7 @@ if (typeof(module) !== 'undefined') {
   module.exports = {
     'translate_mml': translate_mml,
     'determine_beats': determine_beats,
-    'count': count
+    'count': count,
+    'convert': convert
   };
 }

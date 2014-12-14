@@ -4,7 +4,6 @@
 %%
 
 Song -> MM                %{ return translate_mml(n1.val); %}
-     | SS                 %{ return translate_mml(n1.val); %}
      ;
 
 MM  -> MM M               %{ return n1.val.concat(n2.val); %}
@@ -28,8 +27,8 @@ S -> C B                  %{ return {'notes': n1.val, 'beats': count(n2.val)}; %
 C -> '(' NN ')'           %{ return n2.val; %}
   ;
 
-NN -> NN ',' NOTE         %{ return n1.val.concat(n3.val); %}
-    | NOTE                %{ return [n1.val]; %}
+NN -> NN ',' NOTE         %{ return n1.val.concat([convert(n3.val)]); %}
+    | NOTE                %{ return [convert(n1.val)]; %}
     ;
 
 NOTE     -> /[ABCDEFG](b|#)?/;

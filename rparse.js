@@ -8,6 +8,7 @@ if (typeof(module) !== 'undefined') {
   var determine_beats = require('./util.js').determine_beats;
   var translate_mml = require('./util.js').translate_mml;
   var count = require('./util.js').count;
+  var convert = require('./util.js').convert;
 
 }
 
