@@ -130,7 +130,6 @@ exports.createMelody = function (str, tmpo, vol, oct) {
 }
 
 exports.play = function (melodies) {
-  // console.log('test');
   var mmlNotes = [];
   forEachAsync(melodies, function(next, element, index, array) {
     console.log("element: " + JSON.stringify(element));
@@ -138,11 +137,10 @@ exports.play = function (melodies) {
       mmlNotes.push(results);
       next();
     });
-    // rparse([element.notes], grammar, null, next);
   }).then(function(){
     console.log('all requests have finished');
     console.log('mmlNotes: ' + mmlNotes);
-    T("mml", {mml:[mmlNotes]}, synth).on("ended", function() {
+    T("mml", {mml:mmlNotes}, synth).on("ended", function() {
       this.stop();
     }).set({buddies:master}).start().play();
   });
