@@ -4,13 +4,22 @@ function determine_beats(measure) {
   //console.log(measure)
   //measure is array of sounds, get length
   //sound is object with array of notes & beats (integer)
+  // sound can also be an octave change, 
   var time = 4; // replace with global
   var total = 0;
   for (var i in measure) {
-    total += measure[i].beats;
+    if (measure[i].length == 1) {
+      //this means it's an octave, so ignore
+    } else {
+      total += measure[i].beats;
+    }
   }
   for (var i in measure) {
-    measure[i].beats = total / Math.pow(2, measure[i].beats - 1);
+    if (measure[i].length == 1) {
+      //this means it's an octave, so ignore
+    } else {
+      measure[i].beats = total / Math.pow(2, measure[i].beats - 1);
+    }
   }
   return measure;
 }
@@ -22,22 +31,26 @@ function translate_mml(sounds) {
   // console.log(sounds);
   for (var i in sounds) {
     var sound = sounds[i];
-    var notes = sound['notes'];
-    var beats = sound['beats'];
-
-    var exp = "";
-    // Single note
-    if (notes.length == 1)  {
-      exp = notes[0].toLowerCase() + beats.toString();
+    if (sound == '>' || sound == '<') {
+      result += sound;
     } else {
-      var last_note = notes.pop();
-      for (var j in notes) {
-        exp += notes[j].toLowerCase() + "0";
-      }
-      exp += last_note.toLowerCase() + beats.toString();
-    }
+      var notes = sound['notes'];
+      var beats = sound['beats'];
 
-    result += exp + " ";
+      var exp = "";
+      // Single note
+      if (notes.length == 1)  {
+        exp = notes[0].toLowerCase() + beats.toString();
+      } else {
+        var last_note = notes.pop();
+        for (var j in notes) {
+          exp += notes[j].toLowerCase() + "0";
+        }
+        exp += last_note.toLowerCase() + beats.toString();
+      }
+
+      result += exp + " ";
+    }
   }
   return result;
 }
