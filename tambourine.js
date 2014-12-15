@@ -12,7 +12,7 @@ fs.readFile('grammar.grm', 'utf8', function (err, fileContent) {
   grammar = fileContent;
 });
 
-/* Instrument Settings */
+/* Default Instrument Settings */
 var env   = T("adsr", {d:3000, s:0, r:600});
 var synth = T("SynthDef", {mul:0.45, poly:8});
 
@@ -28,12 +28,28 @@ master = T("eq", {params:{lf:[800, 0.5, -2], mf:[6400, 0.5, 4]}}, master);
 master = T("phaser", {freq:mod, Q:2, steps:4}, master);
 master = T("delay", {time:"BPM60 L16", fb:0.65, mix:0.25}, master);
 
+exports.setEnv = function(attack, decay, sustain, release){
+  env = T("adsr", {a:attack, d:decay, s:sustain, r:release});
+}
+
+module.exports.SynthType = {
+  SIN: "sin",
+  PLUCK: "pluck"
+};
+
+exports.setSynth = function (type, fb, mul) {
+  synth.def = function(opts) {
+    var op1 = T(type, {freq:opts.freq, fb:fb, mul:mul});
+    var op2 = T(type, {freq:opts.freq, phase:op1, mul:opts.velocity/128});
+    return env.clone().append(op2).on("ended", opts.doneAction).bang();
+  }
+}
+
+/* SONG SETTINGS */
 var time = '4/4';
 var tempo = 100;
 var volume = 8;
 var octave = 4;
-
-/* PUBLIC METHODS */
 
 exports.setGlobalTime = function (newTime) {
   var patt = /^([1-9])+\/([1-9])+$/g;
