@@ -69,7 +69,7 @@ exports.setGlobalTime = function (newTime) {
 }
 
 exports.setGlobalTempo = function (newTempo) {
-  if (!(newVolume % 1 === 0)) {
+  if (!(newTempo % 1 === 0)) {
     console.error("Tempo should be an integer");
   }
   else {
