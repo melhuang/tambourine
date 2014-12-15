@@ -5,7 +5,7 @@ Q.setGlobalTempo(60);
 Q.setGlobalVolume(7);
 Q.setGlobalOctave(4);
 
-var cello = Q.createMelody('D A B F# | G D G A |');
+var cello = Q.createMelody('D <A B F# | G D G A |');
 
 var m1 = Q.createMelody('F# E D C# | (A, B, C) |');
 var m2 = Q.createMelody('D C# B A  | G F# G E | C D C D C D C D | (A, B, C) --- |');
