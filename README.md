@@ -6,4 +6,8 @@ cs164
 ```npm install forEachAsync```
 ##### To install fractional
 ```npm install fractional```
+
+##### To run your song file
+```node songName```
+
 [Documentation](DOCUMENTATION.md)
