@@ -5,11 +5,11 @@ Q.setGlobalTempo(60);
 Q.setGlobalVolume(7);
 Q.setGlobalOctave(5);
 
-var cello = Q.createMelody('D <A B F# | G D G A >|');
+var cello = Q.createMelody('D >A B F# | G D G A <|');
 cello.octave=3;
 cello.repeat(8);
 
-var violin1 = Q.createMelody('F# E D C# | <B A B > C# | ');
+var violin1 = Q.createMelody('_ _ _ _ | _ _ _ _ | F# E D C# | >B A B <C# | D C# >B A | G F# G E< |');
 
 var m1 = Q.createMelody('F# E D C# | (A, B, C) |');
 var m2 = Q.createMelody('D C# B A  | G F# G E | C D C D C D C D | (A, B, C) --- |');
