@@ -6,3 +6,5 @@ ___
 ##### To install forEachAsync from FutureJS
 ___
 ```npm install forEachAsync```
+
+[Documentation](DOCUMENTATION.md)
