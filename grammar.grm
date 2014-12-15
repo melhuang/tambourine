@@ -1,8 +1,6 @@
 %ignore /\n*/
 %ignore /[ \t\v\f\r]*/
 
-%left '|'
-
 %%
 
 Song -> MM                          %{ console.log(n1.val); return translate_mml(n1.val); %}

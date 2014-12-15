@@ -5,14 +5,19 @@ if (typeof(module) !== 'undefined') {
   var localStorage = new LocalStorage('./parser.cache', {strict: false});
   var http = require('http');
   var ParseError = require('./errors.js').ParseError;
-  var determine_beats = require('./util.js').determine_beats;
-  var translate_mml = require('./util.js').translate_mml;
-  var count = require('./util.js').count;
-  var convert = require('./util.js').convert;
-  var octave = require('./util.js').octave;
+  var utils = require('./util.js');
+  var determine_beats = utils.determine_beats;
+  var translate_mml = utils.translate_mml;
+  var convert = utils.convert;
+  var octave = utils.octave;
+  var count = utils.count;
 }
 
 var useCache = false;
+
+var set_time_signature = function (top, bottom) {
+  utils.set_time_signature(top,bottom);
+}
 
 var rparse = function(inputArray, grammar, serverGrammar, callback) {
   localStorage.clear();
@@ -150,6 +155,7 @@ var rparse = function(inputArray, grammar, serverGrammar, callback) {
 
 if (typeof(module) !== 'undefined') {
   module.exports = {
-    'rparse': rparse
+    'rparse': rparse,
+    'set_time_signature': set_time_signature
   };
 }

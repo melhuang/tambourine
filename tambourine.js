@@ -1,4 +1,5 @@
-var rparse = require('./rparse.js').rparse;
+var rparser = require('./rparse.js');
+var rparse = rparser.rparse;
 
 /* Packages */
 var T = require('timbre');
@@ -41,7 +42,8 @@ exports.setGlobalTime = function (newTime) {
     console.error("Time signature should be defined in syntax: \'n/n\'");
   }
   else {
-    time = newTime;
+    time = newTime.split('/');
+    rparser.set_time_signature(time[0], time[1]);
   }
 }
 
