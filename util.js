@@ -47,7 +47,6 @@ function determine_beats(measure) {
       var sound = measure[i];
       var ratio = new Fraction(Math.pow(2, sound.beats - 1), total);
       var note_type = ratio.multiply(time_signature).toString();
-      console.log(ratio);
       if (note_type in notes) {
         measure[i].note_type = notes[note_type];
       } else {
@@ -101,13 +100,27 @@ function translate_mml(sounds) {
 }
 
 function convert(note) {
+  console.log('start: ' + note);
   if (note.length == 1) {
     return note.toLowerCase();
   } else {
+    var octave = false;
+    if (note.charAt(0) == '`') {
+      note = note.substring(1, note.length);
+      octave = true;
+    }
+    var result = "";
     if (note.charAt(1) == 'b') {
-      return note.charAt(0).toLowerCase() + '-';
+      result = note.charAt(0).toLowerCase() + '-';
+    } else if (note.charAt(1) == '#') {
+      result = note.charAt(0).toLowerCase() + '+';
     } else {
-      return note.charAt(0).toLowerCase() + '+';
+      result = note.charAt(0).toLowerCase();
+    }
+    if (octave) {
+      return "<" + result + ">";
+    } else {
+      return result;
     }
   }
 }
