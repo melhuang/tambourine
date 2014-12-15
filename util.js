@@ -112,7 +112,7 @@ function convert(note) {
 }
 
 function octave(slash) {
-  if (slash.charAt(0) == '/') {
+  if (slash.charAt(0) == '>') {
     return '<';
   } else {
     return '>';
