@@ -60,3 +60,6 @@ Melodies can be set to repeat several times with the function `repeat(numRepeats
 Melodies can be combined and played simultaneously with Tambourine's `play` method.
 	
 	Q.play([m1,m2]);
+	
+#### Musical Syntax
+![test](tambourineSyntax.png)
