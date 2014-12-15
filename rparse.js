@@ -9,7 +9,6 @@ if (typeof(module) !== 'undefined') {
   var determine_beats = utils.determine_beats;
   var translate_mml = utils.translate_mml;
   var convert = utils.convert;
-  var octave = utils.octave;
   var count = utils.count;
 }
 
