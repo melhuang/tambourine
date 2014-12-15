@@ -47,6 +47,7 @@ function determine_beats(measure) {
       var sound = measure[i];
       var ratio = new Fraction(Math.pow(2, sound.beats - 1), total);
       var note_type = ratio.multiply(time_signature).toString();
+      console.log(ratio);
       if (note_type in notes) {
         measure[i].note_type = notes[note_type];
       } else {

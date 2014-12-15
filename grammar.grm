@@ -34,6 +34,6 @@ NN -> NN ',' NOTE                   %{ return n1.val.concat([convert(n3.val)]); 
     ;
 
 NOTE     -> /[ABCDEFG](b|#)?/;
-REST     -> /_/                     %{ return 'r'; %};
+REST     -> /_/                     %{ return ['r']; %};
 B        -> /-*/;
 O        -> /(\/|\\)?/;
