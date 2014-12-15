@@ -23,6 +23,7 @@ S -> C B                            %{ return {'notes': n1.val, 'beats': count(n
   | NN                              %{ return {'notes': n1.val, 'beats': 1}; %}
   | REST B                          %{ return {'notes': n1.val, 'beats': count(n2.val)}; %}
   | REST                            %{ return {'notes': n1.val, 'beats': 1}; %}
+  | O                               %{ return octave(n1.val); %}
   ;
 
 C -> '(' NN ')'                     %{ return n2.val; %}
@@ -35,3 +36,4 @@ NN -> NN ',' NOTE                   %{ return n1.val.concat([convert(n3.val)]); 
 NOTE     -> /[ABCDEFG](b|#)?/;
 REST     -> /_/                     %{ return 'r'; %};
 B        -> /-*/;
+O        -> /(\/|\\)?/;

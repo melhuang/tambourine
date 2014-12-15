@@ -30,24 +30,32 @@ function determine_beats(measure) {
   //sound is object with array of notes & beats (integer)
   var beats_per_measure = time_signature.top; // number of beats per measure
   var beat_note = time_signature.bottom;  // the note that is given one beat
-
   var total = 0;
+
   for (var i in measure) {
-    total += Math.pow(2, measure[i].beats - 1);
+    if (measure[i].length == 1) {
+      //this means it's an octave, so ignore
+    } else {
+      total += Math.pow(2, measure[i].beats - 1);
+    }
   }
 
   for (var i in measure) {
-    var sound = measure[i];
-    var ratio = new Fraction(Math.pow(2, sound.beats - 1), total);
-    var note_type = ratio.multiply(time_signature).toString();
-    if (note_type in notes) {
-      measure[i].note_type = notes[note_type];
+    if (measure[i].length == 1) {
+      //this means it's an octave, so ignore
     } else {
-      var output = "| "
-      for (var j in measure) {
-        output += measure[j].notes.join(', ').toUpperCase() + " "
+      var sound = measure[i];
+      var ratio = new Fraction(Math.pow(2, sound.beats - 1), total);
+      var note_type = ratio.multiply(time_signature).toString();
+      if (note_type in notes) {
+        measure[i].note_type = notes[note_type];
+      } else {
+        var output = "| ";
+        for (var j in measure) {
+          output += measure[j].notes.join(',').toUpperCase() + " ";
+        }
+        throw "Error: Could not parse beats for measure: " + output + "|";
       }
-      throw "Error: Could not parse beats for measure: " + output + "|"
     }
   }
 
@@ -65,19 +73,29 @@ function translate_mml(sounds) {
     var note_type = sound['note_type'];
 
     var exp = "";
-    // Single note
-    if (notes.length == 1)  {
-      exp = notes[0].toLowerCase() + note_type;
+
+    if (sound == '>' || sound == '<') {
+      result += sound;
     } else {
-      var last_note = notes.pop();
-      for (var j in notes) {
-        exp += notes[j].toLowerCase() + "0";
+      var notes = sound['notes'];
+      var beats = sound['beats'];
+
+      var exp = "";
+      // Single note
+      if (notes.length == 1) {
+        exp = notes[0].toLowerCase() + sound.note_type;
+      } else {
+        var last_note = notes.pop();
+        for (var j in notes) {
+          exp += notes[j].toLowerCase() + "0";
+        }
+        exp += last_note.toLowerCase() + sound.note_type;
       }
-      exp += last_note.toLowerCase() + note_type;
     }
 
     result += exp + " ";
   }
+
   return result;
 }
 
