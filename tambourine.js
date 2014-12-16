@@ -116,7 +116,7 @@ exports.createMelody = function (str, tmpo, vol, oct) {
 
   obj.rep = null;
   obj.repeat = function (num) {
-    obj.rep = num;
+    this.rep = num;
   }
   return obj;
 }
@@ -131,7 +131,7 @@ exports.play = function (melodies) {
       settings += "t" + element.tempo;
       settings += " v" + element.volume;
       settings += " o" + element.octave;
-      // settings += " l" + time[]
+      settings += " l" + 4;
       results = settings + " " + results;
       if (element.rep != null) {
         results = '[' + results + ']' + element.rep;
