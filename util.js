@@ -100,13 +100,27 @@ function translate_mml(sounds) {
 }
 
 function convert(note) {
+  console.log('start: ' + note);
   if (note.length == 1) {
     return note.toLowerCase();
   } else {
+    var octave = false;
+    if (note.charAt(0) == '`') {
+      note = note.substring(1, note.length);
+      octave = true;
+    }
+    var result = "";
     if (note.charAt(1) == 'b') {
-      return note.charAt(0).toLowerCase() + '-';
+      result = note.charAt(0).toLowerCase() + '-';
+    } else if (note.charAt(1) == '#') {
+      result = note.charAt(0).toLowerCase() + '+';
     } else {
-      return note.charAt(0).toLowerCase() + '+';
+      result = note.charAt(0).toLowerCase();
+    }
+    if (octave) {
+      return "<" + result + ">";
+    } else {
+      return result;
     }
   }
 }
