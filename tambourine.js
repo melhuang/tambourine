@@ -33,14 +33,14 @@ exports.setEnv = function(attack, decay, sustain, release){
   env = T("adsr", {a:attack, d:decay, s:sustain, r:release});
 }
 
-global.SynthTypes = {
+global.SynthType = {
   SIN: "sin",
   PLUCK: "pluck"
 };
 
 exports.setSynth = function (type, fb, mul) {
   synth.def = function(opts) {
-    var op1 = T(type, {freq:opts.freq, fb:fb, mul:mul});
+    var op1 = T(type, {freq:opts.freq*6, fb:fb, mul:mul});
     var op2 = T("sin", {freq:opts.freq, phase:op1, mul:opts.velocity/128});
     return env.clone().append(op2).on("ended", opts.doneAction).bang();
   }
