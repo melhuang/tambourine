@@ -77,6 +77,7 @@ function translate_mml(sounds) {
     if (sound == '>' || sound == '<') {
       result += sound;
     } else {
+      // Unary octave - hacky fix
       var notes = sound['notes'];
       var beats = sound['beats'];
 
@@ -87,9 +88,18 @@ function translate_mml(sounds) {
       } else {
         var last_note = notes.pop();
         for (var j in notes) {
-          exp += notes[j].toLowerCase() + "0";
+          note = notes[j];
+          if (note[0] == '<') {
+            exp += "<" + note.substring(1, note.length - 1).toLowerCase() + "0" + ">";
+          } else {
+            exp += notes[j].toLowerCase() + "0";
+          }
         }
-        exp += last_note.toLowerCase() + sound.note_type;
+        if (last_note[0] == '<') {
+          exp += "<" + note.toLowerCase() + sound.note_type + ">";
+        } else {
+          exp += last_note.toLowerCase() + sound.note_type;
+        }
       }
     }
 
