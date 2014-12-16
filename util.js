@@ -125,14 +125,6 @@ function convert(note) {
   }
 }
 
-function octave(slash) {
-  if (slash.charAt(0) == '<') {
-    return '<';
-  } else {
-    return '>';
-  }
-}
-
 function count(dashes) {
   if (dashes == "") {
     return 1;
@@ -153,7 +145,6 @@ if (typeof(module) !== 'undefined') {
     'translate_mml': translate_mml,
     'determine_beats': determine_beats,
     'count': count,
-    'octave': octave,
     'convert': convert,
     'set_time_signature': set_time_signature
   };

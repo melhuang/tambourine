@@ -1,3 +1,4 @@
+
 var Q = require('./tambourine.js');
 // console.log(Q);
 
@@ -7,9 +8,10 @@ var Q = require('./tambourine.js');
 // var m2 = Q.createMelody('D');
 
 
-var m1 = Q.createMelody('F# E D C# | (A, B, C) |');
-var m2 = Q.createMelody('D C# B A  | G F# G E | C D C D C D C D | (A, B, C) --- |');
-var m3 = Q.createMelody('C-- E G A | A B C D | A C D A |');
+// var m1 = Q.createMelody('F# E D C# | (A, B, C) |');
+// var m2 = Q.createMelody('D C# B A  | G F# G E | C D C D C D C D | (A, B, C) --- |');
+// var m3 = Q.createMelody('B -- A -- B D (A,B) -- | A B C D | A C D A |');
+var m3 = Q.createMelody('C E G A | A B C D | A C D A |');
 
 Q.setGlobalTime('4/4');
 Q.play([m3]);
