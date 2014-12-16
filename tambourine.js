@@ -33,14 +33,14 @@ exports.setEnv = function(attack, decay, sustain, release){
   env = T("adsr", {a:attack, d:decay, s:sustain, r:release});
 }
 
-global.SynthTypes = {
+global.SynthType = {
   SIN: "sin",
   PLUCK: "pluck"
 };
 
 exports.setSynth = function (type, fb, mul) {
   synth.def = function(opts) {
-    var op1 = T(type, {freq:opts.freq, fb:fb, mul:mul});
+    var op1 = T(type, {freq:opts.freq*6, fb:fb, mul:mul});
     var op2 = T("sin", {freq:opts.freq, phase:op1, mul:opts.velocity/128});
     return env.clone().append(op2).on("ended", opts.doneAction).bang();
   }
@@ -116,7 +116,7 @@ exports.createMelody = function (str, tmpo, vol, oct) {
 
   obj.rep = null;
   obj.repeat = function (num) {
-    obj.rep = num;
+    this.rep = num;
   }
   return obj;
 }
@@ -131,7 +131,7 @@ exports.play = function (melodies) {
       settings += "t" + element.tempo;
       settings += " v" + element.volume;
       settings += " o" + element.octave;
-      // settings += " l" + time[]
+      settings += " l" + 4;
       results = settings + " " + results;
       if (element.rep != null) {
         results = '[' + results + ']' + element.rep;
