@@ -14,3 +14,5 @@ Tambourine
 
 Examples are included in scale.js, blues.js, canon.js, and rather_be.js
 
+##### cs164 Deliverables
+[Demo](http://youtu.be/J-rHJn3F-3U)
