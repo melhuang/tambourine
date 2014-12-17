@@ -116,6 +116,13 @@ exports.createMelody = function (str, tmpo, vol, oct) {
 
   obj.rep = null;
   obj.repeat = function (num) {
+    if (this.rep == null) {
+      this.rep = num;
+    } else {
+      this.rep = this.rep * num;
+    }
+  }
+  obj.setRepeat = function (num) {
     this.rep = num;
   }
   return obj;
@@ -141,7 +148,7 @@ exports.play = function (melodies) {
     });
   }).then(function(){
     console.log('all requests have finished');
-    console.log('mmlNotes: ' + mmlNotes);
+    // console.log('mmlNotes: ' + mmlNotes);
     //Play music here
     T("mml", {mml:mmlNotes}, synth).on("ended", function() {
       this.stop();
