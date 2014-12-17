@@ -96,7 +96,7 @@ function translate_mml(sounds) {
           }
         }
         if (last_note[0] == '<') {
-          exp += "<" + note.toLowerCase() + sound.note_type + ">";
+          exp += "<" + last_note.substring(1, last_note.length -1).toLowerCase() + sound.note_type + ">";
         } else {
           exp += last_note.toLowerCase() + sound.note_type;
         }
