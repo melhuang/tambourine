@@ -110,7 +110,7 @@ function translate_mml(sounds) {
 }
 
 function convert(note) {
-  console.log('start: ' + note);
+  // console.log('start: ' + note);
   if (note.length == 1) {
     return note.toLowerCase();
   } else {

@@ -1,25 +1,30 @@
 var Q = require('./tambourine.js');
 
 Q.setGlobalTime('4/4');
-Q.setGlobalTempo(90);
+Q.setGlobalTempo(60);
 Q.setGlobalVolume(7);
 Q.setGlobalOctave(5);
 
-Q.setSynth(SynthType.PLUCK, 0.5,0.4);
-Q.setEnv(10, 3000, 0, 600);
+// Q.setSynth(SynthType.PLUCK, 0.5,0.4);
+Q.setEnv(5, 3000, 0, 600);
 
-var bassNotes = "Eb-- Eb-- Eb-- Eb- Eb- _- Eb- _- Eb- Eb- Eb- Eb- Eb-|";
-bassNotes += "F-- F-- F-- F- F- _- F- _- F- F- F- F- F-|";
-bassNotes += "D-- D-- D-- D- D- _- D- _- D- D- D- D- D-|";
-bassNotes += "Eb-- Eb-- Eb-- Eb- Eb- _- Eb- _- Eb- Eb- Eb- Eb- Eb-|";
-var bass = Q.createMelody(bassNotes);
-bass.repeat(8);
-bass.octave = 3;
+var topNotes = "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
+topNotes += "(A,`E)-- _- (A,`E)- (A,`F#)-- _- (A,`F#)- (A,`G)-- _- (A,`G)- (A,`F#)-- _- (A,`F#)-|";
+topNotes += "(A,`E)-- _- (A,`E)- (A,`F#)-- _- (A,`F#)- (A,`G)-- _- (A,`G)- (A,`F#)-- _- (A,`F#)-|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
 
-var voiceNotes = "_ | _ | _ | _ |";
-voiceNotes += "_-- D- D-- D-- D- | C- C-- >Bb- A- A- A-- | A-- <C-- C-- C- D- | >Bb- A-- G-- G- Bb- G- |";
-// voiceNotes = " ";
-var voice = Q.createMelody(voiceNotes);
-voice.octave = 5;
+topNotes += "< (F#,B)-- _- (F#,B)- (G#,B)-- _- (G#,B)- (F#,B)-- _- (F#,B)- (G#,B)-- _- (G#,B)-|";
+topNotes += "(E,A)-- _- (E,A)- (F#,A)-- _- (F#,A)- (E,A)-- _- (E,A)- (F#,A)-- _- (F#,A)- >|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
+topNotes += "(E,B)-- _- (E,B)- (E,`C#)-- _- (E,`C#)- (E,`D)-- _- (E,`D)- (E,`C#)-- _- (E,`C#)-|";
 
-Q.play([bass, voice]);
+var top = Q.createMelody(topNotes);
+top.octave = 3;
+top.repeat(10);
+Q.play([top]);
+
+/** TO PLAY: node blues */
