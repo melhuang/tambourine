@@ -1,5 +1,7 @@
-cs164
+Tambourine
 =====
+[Documentation](DOCUMENTATION.md)
+
 ##### To install Timbre.js
 ```npm install timbre```
 ##### To install forEachAsync from FutureJS
@@ -10,4 +12,5 @@ cs164
 ##### To run your song file
 ```node songName```
 
-[Documentation](DOCUMENTATION.md)
+Examples are included in scale.js, blues.js, canon.js, and rather_be.js
+
