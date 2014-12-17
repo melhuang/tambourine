@@ -63,3 +63,7 @@ Melodies can be combined and played simultaneously with Tambourine's `play` meth
 	
 #### Musical Syntax
 ![test](tambourineSyntax.png)
+
+* To ascend an octave within a chord, use the backtick character 
+
+	Example: (E, `C)	
